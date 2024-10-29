@@ -2,35 +2,45 @@ const get = async (headers, endpoint, postData, responseType) => {
     return sendRequest('GET', headers, endpoint, postData, responseType);
 }
 
-const sendRequest = async (method, headers, endpoint, postData, responseType = 'json', fullResponseWhenError = false) => {
+const sendRequest = async (method, headers, endpoint, postData, responseType = 'json') => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open(method, endpoint);
         setHeaders(xhr, headers);
         xhr.responseType = responseType;
         xhr.onload = () => {
-            console.log(xhr);
             if (xhr.status === 200) {
-                const response = {
-                    data: xhr.response,
-                    status: xhr.status
-                };
-                resolve(response);
+                resolve(formatResponse(xhr));
             }
             else {
-                if (fullResponseWhenError) {
-                    reject({
-                        status: xhr.status,
-                        response: xhr.response
-                    })
-                }
-                else {
-                    reject(xhr.statusText);
-                }
+                reject(
+                    new Error('Bad response from Configurator API', {
+                        cause: {
+                            status: xhr.status,
+                            response: xhr.response
+                        }
+                    }
+                    )
+                )
             }
         }
         xhr.send(postData);
     });
+};
+
+const formatResponse = (xhr) => {
+    switch (xhr.responseType) {
+        case 'json':
+            return {
+                data: JSON.parse(xhr.response),
+                status: xhr.status
+            }
+        default:
+            return {
+                data: xhr.response,
+                status: xhr.status
+            }
+    }
 };
 
 const setHeaders = (xhr, headers) => {
