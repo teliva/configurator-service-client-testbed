@@ -40,6 +40,8 @@ namespace ConfiguratorAPIClientTestBed.Controllers
                     return NotFound();
                 case 3:
                     return BadRequest("tilt");
+                case 4:
+                    throw new BadHttpRequestException("Dude you failed");
             }
             return NoContent();
         }
