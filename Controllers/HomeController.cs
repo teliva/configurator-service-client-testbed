@@ -2,6 +2,7 @@ using ConfiguratorAPIClientTestBed.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net;
 
 namespace ConfiguratorAPIClientTestBed.Controllers
 {
@@ -41,7 +42,7 @@ namespace ConfiguratorAPIClientTestBed.Controllers
                 case 3:
                     return BadRequest("tilt");
                 case 4:
-                    throw new BadHttpRequestException("Dude you failed");
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             return NoContent();
         }
