@@ -15,7 +15,7 @@ class ProductCollectionService {
 
     async getPcToc() {
         //const endpoint = this.#_configuratorApiUrl + '/pc/119/tocs?pck=AA01F7E0-9D92-42A5-B099-A17A5ECE5709&tocLevel=2';
-        const endpoint = this.#_configuratorApiUrl + 'tilt?dataString=4';
+        const endpoint = this.#_configuratorApiUrl + 'tilt?dataString=3';
         return get(this.#_httpHeader, endpoint, null, 'json').then(ans =>
         {
             return new Tilt(ans.data);

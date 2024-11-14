@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net;
 
+
 namespace ConfiguratorAPIClientTestBed.Controllers
 {
     public class HomeController : Controller
@@ -42,7 +43,7 @@ namespace ConfiguratorAPIClientTestBed.Controllers
                 case 3:
                     return BadRequest("tilt");
                 case 4:
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                    throw new HttpResponseException(413);
             }
             return NoContent();
         }
