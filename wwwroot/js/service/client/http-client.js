@@ -29,10 +29,12 @@ const sendRequest = async (method, headers, endpoint, postData, responseType = '
 };
 
 const formatResponse = (xhr) => {
+    console.log(xhr.response);
+    debugger;
     switch (xhr.responseType) {
         case 'json':
             return {
-                data: JSON.parse(xhr.response),
+                data: xhr.response,
                 status: xhr.status
             }
         default:

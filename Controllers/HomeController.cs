@@ -1,8 +1,7 @@
 using ConfiguratorAPIClientTestBed.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Net;
+using System.Text.Json;
 
 
 namespace ConfiguratorAPIClientTestBed.Controllers
@@ -28,16 +27,16 @@ namespace ConfiguratorAPIClientTestBed.Controllers
 
         [HttpGet]
         [Route("tilt")]
-        public IActionResult GetTilt([FromQuery] int dataString)
+        public async Task<IActionResult> GetTilt([FromQuery] int dataString)
         {
-            var ans = new TiltResponse();
-            System.Diagnostics.Trace.WriteLine(JsonConvert.SerializeObject(ans));
+            TiltResponse ans = new TiltResponse();
+            Console.WriteLine(JsonSerializer.Serialize(ans));
             switch (dataString)
             {
                 case 0:
                     return NoContent();
                 case 1:
-                    return Ok(JsonConvert.SerializeObject(ans));
+                    return Ok(JsonSerializer.Serialize(ans));
                 case 2:
                     return NotFound();
                 case 3:

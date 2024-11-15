@@ -5,7 +5,6 @@ class Configurator {
 };
 
 const initConfigurator = (param) => {
-    console.log(globalThis.configuratorService);
     return new Configurator(param);
 };
 
