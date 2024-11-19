@@ -1,9 +1,8 @@
 ﻿class Tilt {
     constructor(cat) {
-        debugger;
-        this.reason = cat.Reason;
-        this.howManyTimes = cat.HowManyTimes;
-        this.wasItMyFault = cat.WasItMyFault;
+        this.reason = cat.reason;
+        this.howManyTimes = cat.howManyTimes;
+        this.wasItMyFault = cat.wasItMyFault;
     };
 };
 

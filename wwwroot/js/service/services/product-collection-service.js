@@ -1,25 +1,19 @@
-import { get } from '../client/http-client.js';
-import { ConfiguratorHttpHeader } from '../client/models/header.js';
+import { asyncGet } from '../client/fetch-client.js';
 import { Tilt } from './models/tilt.js';
 
 class ProductCollectionService {
-    #_sharedKey;
     #_configuratorApiUrl;
-    #_httpHeader;
-
-    constructor(sharedKey, configuratorApiUrl) {
-        this.#_sharedKey = sharedKey;
+    #_getHttpHeader
+    constructor(configuratorApiUrl, getHttpHeader) {
         this.#_configuratorApiUrl = configuratorApiUrl;
-        this.#_httpHeader = new ConfiguratorHttpHeader('application/json', 'application/json', sharedKey);
+        this.#_getHttpHeader = getHttpHeader;
     };
 
-    async getPcToc() {
-        //const endpoint = this.#_configuratorApiUrl + '/pc/119/tocs?pck=AA01F7E0-9D92-42A5-B099-A17A5ECE5709&tocLevel=2';
+    async fetchPcToc() {
         const endpoint = this.#_configuratorApiUrl + 'tilt?dataString=1';
-        return get(this.#_httpHeader, endpoint, null, 'json').then(ans =>
-        {
-            return new Tilt(ans.data);
-        });
+
+        const response = await asyncGet(endpoint, this.#_getHttpHeader());
+        return new Tilt(response);
     };
 };
 
