@@ -5,6 +5,7 @@
     });
 
     if (!response.ok) {
+        console.log(response);
         throw new Error(`Bad response from API: ${response.status}`);
     }
     if (response.status === 204) {

@@ -11,7 +11,15 @@ builder.Services.AddControllers(options =>
 });
 //builder.Services.AddExceptionHandler<ConfiguratorExceptionHandler>();
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+           builder => builder
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
+});
 
 var app = builder.Build();
 
